@@ -4,6 +4,7 @@ import articleContent from "./article-content";
 import ArticlesList from "../components/ArticlesList";
 import CommentsList from "../components/CommentsList";
 import UpvotesSection from "../components/UpvotesSection";
+import AddCommentForm from "../components/AddCommentForm";
 import NoFoundPage from "./NoFoundPage";
 
 export default function ArticlePage({ match }) {
@@ -37,6 +38,7 @@ export default function ArticlePage({ match }) {
 				<p key={key}>{paragraph}</p>
 			))}
 			<CommentsList comments={articleInfo.comments} />
+			<AddCommentForm articleName={name} setArticleInfo={setArticleInfo} />
 			<h1>Other Articles:</h1>
 			<ArticlesList articles={otehrArticles} />
 		</>

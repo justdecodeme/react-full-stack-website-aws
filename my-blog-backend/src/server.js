@@ -44,13 +44,21 @@ const withDB = async (operations, res) => {
 // app.get("/hello/:name", (req, res) => res.send(`Hello ${req.params.name}`));
 app.post("/hello", (req, res) => res.send(`Hello ${req.body.name}!`));
 
+// ! NOT WORKING FOR NOW - FETCHING ALL DATA FROM DB
+// app.get("/api/articles-list", async (req, res) => {
+// 	withDB(async (db) => {
+// 		const articlesList = await db.collection("articles").find({});
+// 		console.log(articlesList.json());
+
+// 		res.status(200).json(articlesList);
+// 	}, res);
+// });
+
 app.get("/api/articles/:name", async (req, res) => {
 	withDB(async (db) => {
 		const articleName = req.params.name;
 
-		const articleInfo = await db
-			.collection("articles")
-			.findOne({ name: articleName });
+		const articleInfo = await db.collection("articles").findOne({ name: articleName });
 
 		res.status(200).json(articleInfo);
 	}, res);
@@ -60,9 +68,7 @@ app.post("/api/articles/:name/upvote", async (req, res) => {
 	withDB(async (db) => {
 		const articleName = req.params.name;
 
-		const articleInfo = await db
-			.collection("articles")
-			.findOne({ name: articleName });
+		const articleInfo = await db.collection("articles").findOne({ name: articleName });
 
 		await db.collection("articles").updateOne(
 			{ name: articleName },
@@ -73,9 +79,7 @@ app.post("/api/articles/:name/upvote", async (req, res) => {
 			}
 		);
 
-		const updatedArticleInfo = await db
-			.collection("articles")
-			.findOne({ name: articleName });
+		const updatedArticleInfo = await db.collection("articles").findOne({ name: articleName });
 
 		res.status(200).json(updatedArticleInfo);
 	}, res);
@@ -88,9 +92,7 @@ app.post("/api/articles/:name/add-comment", (req, res) => {
 	console.log(username, text, articleName);
 
 	withDB(async (db) => {
-		const articleInfo = await db
-			.collection("articles")
-			.findOne({ name: articleName });
+		const articleInfo = await db.collection("articles").findOne({ name: articleName });
 		await db.collection("articles").updateOne(
 			{ name: articleName },
 			{
@@ -99,9 +101,7 @@ app.post("/api/articles/:name/add-comment", (req, res) => {
 				},
 			}
 		);
-		const updatedArticleInfo = await db
-			.collection("articles")
-			.findOne({ name: articleName });
+		const updatedArticleInfo = await db.collection("articles").findOne({ name: articleName });
 
 		res.status(200).json(updatedArticleInfo);
 	}, res);
