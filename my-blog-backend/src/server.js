@@ -88,10 +88,9 @@ app.post("/api/articles/:name/add-comment", (req, res) => {
 	console.log(username, text, articleName);
 
 	withDB(async (db) => {
-		const articleInfo = db
+		const articleInfo = await db
 			.collection("articles")
 			.findOne({ name: articleName });
-
 		await db.collection("articles").updateOne(
 			{ name: articleName },
 			{
@@ -100,7 +99,6 @@ app.post("/api/articles/:name/add-comment", (req, res) => {
 				},
 			}
 		);
-
 		const updatedArticleInfo = await db
 			.collection("articles")
 			.findOne({ name: articleName });
