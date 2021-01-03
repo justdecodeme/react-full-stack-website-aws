@@ -2,6 +2,7 @@
   "name": "react-mean-stack-blog",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://node-mongo-demo.justdecode.me/",
   "proxy": "http://localhost:8000/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.8",
